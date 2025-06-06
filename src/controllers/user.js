@@ -5,6 +5,7 @@ import { UploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
 import { upload } from "../middlewares/multer.js";
+import mongoose from "mongoose";
 // Generate tokens and save refresh token
 const generateAccessAndRefreshToken = async (userId) => {
     try {
@@ -183,7 +184,7 @@ const changePassword = asyncHandler(async(req,res)=>{
 if(!ispasswordCorrect){
     throw new ApiError(400,"Invalid old Password")
 }
-user.password=newrefreshToken
+user.password=newPassword;
     await user.save({validateBeforeSave:false})
 return res.status(200).json(new ApiResponse(200,"Passwordchange successfully"))
 })

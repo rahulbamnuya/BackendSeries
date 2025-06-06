@@ -13,8 +13,11 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
             return res.status(401).json({ message: "Access token is required" });
         }
 
-        const decodedinfo = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        const user = await User.findById(decodedinfo?._id).select("-password -refreshToken");
+        const decodedinfo = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        console.log("Decoded Info:", decodedinfo._id);
+        
+    const user = await User.findById(decodedinfo._id).select("-password -refreshToken");
+        console.log("User:", user);
 
         if (!user) {
             throw new ApiError(401, "Unauthorized access");

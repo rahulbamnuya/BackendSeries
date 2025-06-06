@@ -7,7 +7,7 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   watchHistory: [{
     type: Schema.Types.ObjectId,
-    ref: 'videos'
+    ref: 'Video'
   }],
   username: {
     type: String,
